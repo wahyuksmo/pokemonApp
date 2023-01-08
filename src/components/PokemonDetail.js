@@ -82,6 +82,7 @@ export default function PokemonDetail() {
                     <div className="col-md-4">
                       <img
                         src={pokemon.images.large}
+                        alt="gambar-pokemon"
                         className="img-fluid rounded-start"
                       />
                     </div>

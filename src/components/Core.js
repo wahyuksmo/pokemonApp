@@ -61,7 +61,7 @@ export default function Core() {
                   return (
                     <div className="col-md-4" key={item.id}>
                       <div className="card mb-5">
-                        <img src={item.images.large} />
+                        <img src={item.images.large} alt="gambar-pokemon" />
                         <div className="card-body">
                           <h5 className="card-title">{item.name}</h5>
                           <ul className="list-group list-group-flush">
