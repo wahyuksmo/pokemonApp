@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function PokemonDetail() {
@@ -12,15 +12,6 @@ export default function PokemonDetail() {
   let [dataAbilites, setDataAbilites] = useState({});
   let [notFound, setNotFound] = useState(false);
 
-
-
-
-  async function handle(id) {
-
-        let data = []
-        data.push(id)
-        localStorage.setItem("id", data)
-  }
 
 
   useEffect(() => {
@@ -140,6 +131,7 @@ export default function PokemonDetail() {
                       <div className="col-md-4">
                         <img
                           src={pokemon.images.large}
+                          alt="gambar-pokemon"
                           className="img-fluid rounded-start"
                         />
                       </div>
