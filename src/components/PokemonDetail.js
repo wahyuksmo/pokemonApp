@@ -104,10 +104,8 @@ export default function PokemonDetail() {
                           >
                             Back to home
                           </Link>
-
                           
                         </ul>
-                        <button className="btn btn-primary mt-4" onClick={handle.bind(this, pokemon.id)}>Primary</button>
                       </div>
                     </div>
                   </div>
@@ -178,7 +176,6 @@ export default function PokemonDetail() {
                             </Link>
 
                           </ul>
-                          <button className="btn btn-primary mt-4" onClick={handle.bind(this, pokemon.id)}>Primary</button>
                         </div>
                       </div>
                     </div>
