@@ -1,10 +1,8 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function PokemonDetail() {
   const params = useParams();
-
-
 
   let [pokemon, setPokemon] = useState({});
   let [loading, setLoading] = useState(true);
@@ -12,13 +10,7 @@ export default function PokemonDetail() {
   let [dataAbilites, setDataAbilites] = useState({});
   let [notFound, setNotFound] = useState(false);
 
-
-
   useEffect(() => {
-    
-
-
-
     async function getPokemon() {
       let request = await fetch(
         `https://api.pokemontcg.io/v2/cards/${params.id}?api_key=8393687e-b96a-4f84-ac53-c5f5aad37d06`
@@ -41,12 +33,20 @@ export default function PokemonDetail() {
     getPokemon();
   }, [params]);
 
+  async function handle(id) {
+    let getItem = localStorage.getItem("id-favorit");
 
- 
+    let array = [];
+    if (getItem === null) {
+      array = [];
+    } else {
+      array = JSON.parse(getItem);
+    }
 
+    array.push(id);
 
- 
-
+    localStorage.setItem("id-favorit", JSON.stringify(array));
+  }
 
   if (notFound) {
     return <h1 className="text-center mt-5">Halaman Tidak ada</h1>;
@@ -54,60 +54,67 @@ export default function PokemonDetail() {
 
   if (abilities) {
     return (
-    <section className="detail">
-      <div className="container">
-        <div className="row">
-          {loading && (
-            <div className="d-flex justify-content-center mt-5">
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
+      <section className="detail">
+        <div className="container">
+          <div className="row">
+            {loading && (
+              <div className="d-flex justify-content-center mt-5">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {!loading && (
-            <>
-              <section className="mt-5">
-                <div className="card mb-3">
-                  <div className="row g-0">
-                    <div className="col-md-4">
-                      <img
-                        src={pokemon.images.large}
-                        alt="gambar-pokemon"
-                        className="img-fluid rounded-start"
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <div className="card-body">
-                        <h5 className="card-title"> {pokemon.name} </h5>
-                        <ul className="list-group list-group-flush">
-                          <li className="list-group-item">
-                            <b>SuperType : </b> {pokemon.supertype}
-                          </li>
-                          <li className="list-group-item">
-                            <b>Type : </b> {pokemon.types}
-                          </li>
-                          <li className="list-group-item">
-                            Tidak ada Abilites
-                          </li>
-                          <Link
-                            to={"/"}
-                            className="ms-2 text-decoration-none mt-4"
+            {!loading && (
+              <>
+                <section className="mt-5">
+                  <div className="card mb-3">
+                    <div className="row g-0">
+                      <div className="col-md-4">
+                        <img
+                          src={pokemon.images.large}
+                          alt="gambar-pokemon"
+                          className="img-fluid rounded-start"
+                        />
+                      </div>
+                      <div className="col-md-8">
+                        <div className="card-body">
+                          <h5 className="card-title"> {pokemon.name} </h5>
+                          <ul className="list-group list-group-flush">
+                            <li className="list-group-item">
+                              <b>SuperType : </b> {pokemon.supertype}
+                            </li>
+                            <li className="list-group-item">
+                              <b>Type : </b> {pokemon.types}
+                            </li>
+                            <li className="list-group-item">
+                              Tidak ada Abilites
+                            </li>
+                            <Link
+                              to={"/"}
+                              className="ms-2 text-decoration-none mt-4"
+                            >
+                              Back to home
+                            </Link>
+                          </ul>
+
+                          <button
+                            className="btn btn-primary"
+                            onClick={handle.bind(this, pokemon.id)}
                           >
-                            Back to home
-                          </Link>
-                          
-                        </ul>
+                            Coba
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            </>
-          )}
+                </section>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </section>);
+      </section>
+    );
   }
 
   if (!abilities) {
@@ -167,8 +174,14 @@ export default function PokemonDetail() {
                             >
                               Back to home
                             </Link>
-
                           </ul>
+
+                          <button
+                            className="btn btn-primary"
+                            onClick={handle.bind(this, pokemon.id)}
+                          >
+                            Coba
+                          </button>
                         </div>
                       </div>
                     </div>
